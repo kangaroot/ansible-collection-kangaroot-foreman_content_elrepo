@@ -1,0 +1,141 @@
+---
+# noqa: var-naming[no-role-prefix]
+
+foreman_products_defaults: &foreman_products_defaults
+  content_type: yum
+  gpg_key: "{{ foreman_cred_name_prefix | default('') }}RPM-GPG-KEY-elrepo.org"
+  download_policy: "{{ foreman_products_defaults_download_policy_elrepo }}"
+  # mirror_on_sync: True
+  # mirroring_policy: "additive"
+  # mirroring_policy: "mirror_content_only"
+  # mirroring_policy: "mirror_complete"
+  mirroring_policy: "{{ foreman_products_defaults_mirroring_policy_elrepo }}"
+  verify_ssl_on_sync: "{{ foreman_products_defaults_verify_ssl_on_sync_elrepo | bool }}"
+  # http_proxy: Default Proxy
+  http_proxy_policy: "{{ foreman_products_defaults_http_proxy_policy_elrepo }}"
+  unprotected: "{{ foreman_products_defaults_unprotected_elrepo | bool }}"
+
+
+foreman_products_elrepo_el7:
+  - name: "{{ foreman_product_name_prefix | default('') }}ELRepo.org"
+    label: "{{ foreman_product_label_prefix | default('') }}ELRepo"
+    organization: "{{ foreman_organization_elrepo_el7 }}"
+    repositories:
+      - name: "{{ foreman_repo_name_prefix | default('') }}ELRepo.org Community Enterprise Linux Repository - el7"
+        label: "{{ foreman_repo_label_prefix | default('') }}elrepo-el7"
+        <<: *foreman_products_defaults
+        url: "{{ foreman_repo_baseurl_elrepo }}/elrepo/el7/x86_64/"
+        organization: "{{ foreman_organization_elrepo_el7 }}"
+      - name: "{{ foreman_repo_name_prefix | default('') }}ELRepo.org Community Enterprise Linux Kernel Repository - el7"
+        label: "{{ foreman_repo_label_prefix | default('') }}elrepo-kernel-el7"
+        <<: *foreman_products_defaults
+        url: "{{ foreman_repo_baseurl_elrepo }}/kernel/el7/x86_64/"
+        organization: "{{ foreman_organization_elrepo_el7 }}"
+      - name: "{{ foreman_repo_name_prefix | default('') }}ELRepo.org Community Enterprise Linux Extras Repository - el7"
+        label: "{{ foreman_repo_label_prefix | default('') }}elrepo-extras-el7"
+        <<: *foreman_products_defaults
+        url: "{{ foreman_repo_baseurl_elrepo }}/extras/el7/x86_64/"
+        organization: "{{ foreman_organization_elrepo_el7 }}"
+
+foreman_products_elrepo_el8:
+  - name: "{{ foreman_product_name_prefix | default('') }}ELRepo.org"
+    label: "{{ foreman_product_label_prefix | default('') }}ELRepo"
+    organization: "{{ foreman_organization_elrepo_el8 }}"
+    repositories:
+      - name: "{{ foreman_repo_name_prefix | default('') }}ELRepo.org Community Enterprise Linux Repository - el8"
+        label: "{{ foreman_repo_label_prefix | default('') }}elrepo-el8"
+        <<: *foreman_products_defaults
+        url: "{{ foreman_repo_baseurl_elrepo }}/elrepo/el8/x86_64/"
+        organization: "{{ foreman_organization_elrepo_el8 }}"
+      - name: "{{ foreman_repo_name_prefix | default('') }}ELRepo.org Community Enterprise Linux Kernel Repository - el8"
+        label: "{{ foreman_repo_label_prefix | default('') }}elrepo-kernel-el8"
+        <<: *foreman_products_defaults
+        url: "{{ foreman_repo_baseurl_elrepo }}/kernel/el8/x86_64/"
+        organization: "{{ foreman_organization_elrepo_el8 }}"
+      - name: "{{ foreman_repo_name_prefix | default('') }}ELRepo.org Community Enterprise Linux Extras Repository - el8"
+        label: "{{ foreman_repo_label_prefix | default('') }}elrepo-extras-el8"
+        <<: *foreman_products_defaults
+        url: "{{ foreman_repo_baseurl_elrepo }}/extras/el8/x86_64/"
+        organization: "{{ foreman_organization_elrepo_el8 }}"
+
+foreman_products_elrepo_el9:
+  - name: "{{ foreman_product_name_prefix | default('') }}ELRepo.org"
+    label: "{{ foreman_product_label_prefix | default('') }}ELRepo"
+    organization: "{{ foreman_organization_elrepo_el9 }}"
+    repositories:
+      - name: "{{ foreman_repo_name_prefix | default('') }}ELRepo.org Community Enterprise Linux Repository - el9"
+        label: "{{ foreman_repo_label_prefix | default('') }}elrepo-el9"
+        <<: *foreman_products_defaults
+        url: "{{ foreman_repo_baseurl_elrepo }}/elrepo/el9/x86_64/"
+        organization: "{{ foreman_organization_elrepo_el9 }}"
+      - name: "{{ foreman_repo_name_prefix | default('') }}ELRepo.org Community Enterprise Linux Kernel Repository - el9"
+        label: "{{ foreman_repo_label_prefix | default('') }}elrepo-kernel-el9"
+        <<: *foreman_products_defaults
+        url: "{{ foreman_repo_baseurl_elrepo }}/kernel/el9/x86_64/"
+        organization: "{{ foreman_organization_elrepo_el9 }}"
+      - name: "{{ foreman_repo_name_prefix | default('') }}ELRepo.org Community Enterprise Linux Extras Repository - el9"
+        label: "{{ foreman_repo_label_prefix | default('') }}elrepo-extras-el9"
+        <<: *foreman_products_defaults
+        url: "{{ foreman_repo_baseurl_elrepo }}/extras/el9/x86_64/"
+        organization: "{{ foreman_organization_elrepo_el9 }}"
+
+foreman_content_views_elrepo_el7:
+  - name: "{{ foreman_cv_prefix | default('cv_') }}{{ foreman_cv_name_prefix | default('') }}elrepo_el7"
+    organization: "{{ foreman_organization_elrepo_el7 }}"
+    repositories:
+      - name: "{{ foreman_repo_name_prefix | default('') }}ELRepo.org Community Enterprise Linux Repository - el7"
+        product: "{{ foreman_product_name_prefix | default('') }}ELRepo.org"
+    allow_promote: "{{ foreman_cv_allow_promote_elrepo_el7 }}"
+  - name: "{{ foreman_cv_prefix | default('cv_') }}{{ foreman_cv_name_prefix | default('') }}elrepo_kernel_el7"
+    organization: "{{ foreman_organization_elrepo_el7 }}"
+    repositories:
+      - name: "{{ foreman_repo_name_prefix | default('') }}ELRepo.org Community Enterprise Linux Kernel Repository - el7"
+        product: "{{ foreman_product_name_prefix | default('') }}ELRepo.org"
+    allow_promote: "{{ foreman_cv_allow_promote_elrepo_el7 }}"
+  - name: "{{ foreman_cv_prefix | default('cv_') }}{{ foreman_cv_name_prefix | default('') }}elrepo_extras_el7"
+    organization: "{{ foreman_organization_elrepo_el7 }}"
+    repositories:
+      - name: "{{ foreman_repo_name_prefix | default('') }}ELRepo.org Community Enterprise Linux Extras Repository - el7"
+        product: "{{ foreman_product_name_prefix | default('') }}ELRepo.org"
+    allow_promote: "{{ foreman_cv_allow_promote_elrepo_el7 }}"
+
+foreman_content_views_elrepo_el8:
+  - name: "{{ foreman_cv_prefix | default('cv_') }}{{ foreman_cv_name_prefix | default('') }}elrepo_el8"
+    organization: "{{ foreman_organization_elrepo_el8 }}"
+    repositories:
+      - name: "{{ foreman_repo_name_prefix | default('') }}ELRepo.org Community Enterprise Linux Repository - el8"
+        product: "{{ foreman_product_name_prefix | default('') }}ELRepo.org"
+    allow_promote: "{{ foreman_cv_allow_promote_elrepo_el8 }}"
+  - name: "{{ foreman_cv_prefix | default('cv_') }}{{ foreman_cv_name_prefix | default('') }}elrepo_kernel_el8"
+    organization: "{{ foreman_organization_elrepo_el8 }}"
+    repositories:
+      - name: "{{ foreman_repo_name_prefix | default('') }}ELRepo.org Community Enterprise Linux Kernel Repository - el8"
+        product: "{{ foreman_product_name_prefix | default('') }}ELRepo.org"
+    allow_promote: "{{ foreman_cv_allow_promote_elrepo_el8 }}"
+  - name: "{{ foreman_cv_prefix | default('cv_') }}{{ foreman_cv_name_prefix | default('') }}elrepo_extras_el8"
+    organization: "{{ foreman_organization_elrepo_el8 }}"
+    repositories:
+      - name: "{{ foreman_repo_name_prefix | default('') }}ELRepo.org Community Enterprise Linux Extras Repository - el8"
+        product: "{{ foreman_product_name_prefix | default('') }}ELRepo.org"
+    allow_promote: "{{ foreman_cv_allow_promote_elrepo_el8 }}"
+
+foreman_content_views_elrepo_el9:
+  - name: "{{ foreman_cv_prefix | default('cv_') }}{{ foreman_cv_name_prefix | default('') }}elrepo_el9"
+    organization: "{{ foreman_organization_elrepo_el9 }}"
+    repositories:
+      - name: "{{ foreman_repo_name_prefix | default('') }}ELRepo.org Community Enterprise Linux Repository - el9"
+        product: "{{ foreman_product_name_prefix | default('') }}ELRepo.org"
+    allow_promote: "{{ foreman_cv_allow_promote_elrepo_el9 }}"
+  - name: "{{ foreman_cv_prefix | default('cv_') }}{{ foreman_cv_name_prefix | default('') }}elrepo_kernel_el9"
+    organization: "{{ foreman_organization_elrepo_el9 }}"
+    repositories:
+      - name: "{{ foreman_repo_name_prefix | default('') }}ELRepo.org Community Enterprise Linux Kernel Repository - el9"
+        product: "{{ foreman_product_name_prefix | default('') }}ELRepo.org"
+    allow_promote: "{{ foreman_cv_allow_promote_elrepo_el9 }}"
+  - name: "{{ foreman_cv_prefix | default('cv_') }}{{ foreman_cv_name_prefix | default('') }}elrepo_extras_el9"
+    organization: "{{ foreman_organization_elrepo_el9 }}"
+    repositories:
+      - name: "{{ foreman_repo_name_prefix | default('') }}ELRepo.org Community Enterprise Linux Extras Repository - el9"
+        product: "{{ foreman_product_name_prefix | default('') }}ELRepo.org"
+    allow_promote: "{{ foreman_cv_allow_promote_elrepo_el9 }}"
+

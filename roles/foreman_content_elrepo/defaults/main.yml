@@ -1,0 +1,125 @@
+---
+# noqa: var-naming[no-role-prefix]
+# defaults file for foreman_content_elrepo
+
+#######################################
+### URLS
+#######################################
+
+### ELREPO
+
+foreman_repo_baseurl_elrepo: http://elrepo.org/linux
+
+
+#######################################
+### ENABLE VARS
+#######################################
+
+### ELREPO
+
+foreman_enable_elrepo: false
+
+foreman_enable_elrepo_el7: false
+foreman_enable_elrepo_el8: "{{ foreman_enable_elrepo | bool }}"
+foreman_enable_elrepo_el9: "{{ foreman_enable_elrepo | bool }}"
+
+
+#######################################
+### PRODUCT DEFAULTS
+#######################################
+
+### ELREPO
+
+foreman_products_defaults_download_policy_elrepo: "{{ foreman_products_defaults_download_policy }}"
+foreman_products_defaults_mirroring_policy_elrepo: "{{ foreman_products_defaults_mirroring_policy }}"
+foreman_products_defaults_verify_ssl_on_sync_elrepo: "{{ foreman_products_defaults_verify_ssl_on_sync | bool }}"
+foreman_products_defaults_http_proxy_policy_elrepo: "{{ foreman_products_defaults_http_proxy_policy }}"
+foreman_products_defaults_unprotected_elrepo: "{{ foreman_products_defaults_unprotected | bool }}"
+
+
+#######################################
+### ORGANIZATION VARS
+#######################################
+
+### ELREPO
+
+foreman_organization_elrepo: "{{ foreman_organization }}"
+
+foreman_organization_elrepo_el7: "{{ foreman_organization_elrepo }}"
+foreman_organization_elrepo_el8: "{{ foreman_organization_elrepo }}"
+foreman_organization_elrepo_el9: "{{ foreman_organization_elrepo }}"
+
+
+#######################################
+### CONTENT VIEW DEFAULTS
+#######################################
+
+### ELREPO
+
+foreman_cv_allow_promote_elrepo: "{{ foreman_cv_allow_promote | bool }}"
+
+foreman_cv_allow_promote_elrepo_el7: "{{ foreman_cv_allow_promote_elrepo | bool }}"
+foreman_cv_allow_promote_elrepo_el8: "{{ foreman_cv_allow_promote_elrepo | bool }}"
+foreman_cv_allow_promote_elrepo_el9: "{{ foreman_cv_allow_promote_elrepo | bool }}"
+
+
+#######################################
+### CONTENT
+#######################################
+
+foreman_content_credentials_elrepo_main:
+  - name: "{{ foreman_cred_name_prefix | default('') }}RPM-GPG-KEY-elrepo.org"
+    content_type: gpg_key
+    # content: "{{ lookup('ansible.builtin.url', 'https://www.elrepo.org/RPM-GPG-KEY-elrepo.org', split_lines=False, validate_certs=False) }}"
+    content: "{{ lookup('ansible.builtin.file', role_path ~ '/files/RPM-GPG-KEY-elrepo.org') }}"
+
+foreman_content_credentials_elrepo: "{{ ( foreman_content_credentials_elrepo_main | default([]) if foreman_enable_elrepo | bool else [] ) |
+  union( foreman_content_credentials_elrepo_el7 | default([]) if foreman_enable_elrepo_el7 | bool else [] ) |
+  union( foreman_content_credentials_elrepo_el8 | default([]) if foreman_enable_elrepo_el8 | bool else [] ) |
+  union( foreman_content_credentials_elrepo_el9 | default([]) if foreman_enable_elrepo_el9 | bool else [] )
+  }}"
+
+foreman_products_elrepo_main: []
+foreman_products_elrepo: "{{ ( foreman_products_elrepo_main | default([]) if foreman_enable_elrepo | bool else [] ) |
+  union( foreman_products_elrepo_el7 | default([]) if foreman_enable_elrepo_el7 | bool else [] ) |
+  union( foreman_products_elrepo_el8 | default([]) if foreman_enable_elrepo_el8 | bool else [] ) |
+  union( foreman_products_elrepo_el9 | default([]) if foreman_enable_elrepo_el9 | bool else [] )
+  }}"
+
+foreman_content_views_elrepo_main: []
+foreman_content_views_elrepo: "{{ ( foreman_content_views_elrepo_main | default([]) if foreman_enable_elrepo | bool else [] ) |
+  union( foreman_content_views_elrepo_el7 | default([]) if foreman_enable_elrepo_el7 | bool else [] ) |
+  union( foreman_content_views_elrepo_el8 | default([]) if foreman_enable_elrepo_el8 | bool else [] ) |
+  union( foreman_content_views_elrepo_el9 | default([]) if foreman_enable_elrepo_el9 | bool else [] )
+  }}"
+
+foreman_operatingsystems_elrepo_main: []
+foreman_operatingsystems_elrepo: "{{ ( foreman_operatingsystems_elrepo_main | default([]) if foreman_enable_elrepo | bool else [] ) |
+  union( foreman_operatingsystems_elrepo_el7 | default([]) if foreman_enable_elrepo_el7 | bool else [] ) |
+  union( foreman_operatingsystems_elrepo_el8 | default([]) if foreman_enable_elrepo_el8 | bool else [] ) |
+  union( foreman_operatingsystems_elrepo_el9 | default([]) if foreman_enable_elrepo_el9 | bool else [] )
+  }}"
+
+foreman_installation_media_elrepo_main: []
+foreman_installation_media_elrepo: "{{ ( foreman_installation_media_elrepo_main | default([]) if foreman_enable_elrepo | bool else [] ) |
+  union( foreman_installation_media_elrepo_el7 | default([]) if foreman_enable_elrepo_el7 | bool else [] ) |
+  union( foreman_installation_media_elrepo_el8 | default([]) if foreman_enable_elrepo_el8 | bool else [] ) |
+  union( foreman_installation_media_elrepo_el9 | default([]) if foreman_enable_elrepo_el9 | bool else [] )
+  }}"
+
+foreman_activation_keys_elrepo_main: []
+foreman_activation_keys_elrepo: "{{ ( foreman_activation_keys_elrepo_main | default([]) if foreman_enable_elrepo | bool else [] ) |
+  union( foreman_activation_keys_elrepo_el7 | default([]) if foreman_enable_elrepo_el7 | bool else [] ) |
+  union( foreman_activation_keys_elrepo_el8 | default([]) if foreman_enable_elrepo_el8 | bool else [] ) |
+  union( foreman_activation_keys_elrepo_el9 | default([]) if foreman_enable_elrepo_el9 | bool else [] )
+  }}"
+
+foreman_sync_plan_products_elrepo_main:
+  - "{{ foreman_product_name_prefix | default('') }}ELRepo.org"
+
+foreman_sync_plan_products_elrepo: "{{ ( foreman_sync_plan_products_elrepo_main | default([]) if foreman_enable_elrepo | bool else [] ) |
+  union( foreman_sync_plan_products_elrepo_el7 | default([]) if foreman_enable_elrepo_el7 | bool else [] ) |
+  union( foreman_sync_plan_products_elrepo_el8 | default([]) if foreman_enable_elrepo_el8 | bool else [] ) |
+  union( foreman_sync_plan_products_elrepo_el9 | default([]) if foreman_enable_elrepo_el9 | bool else [] )
+  }}"
+
